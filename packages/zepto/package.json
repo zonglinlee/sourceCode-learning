@@ -31,7 +31,7 @@
   "description": "Zepto is a minimalist JavaScript library for modern browsers with a largely jQuery-compatible API. If you use jQuery, you already know how to use Zepto.",
   "devDependencies": {
     "coffee-script": "1.5.x",
-    "express": "3.1.x",
+    "express": "4.17.x",
     "shelljs": "0.1.x",
     "uglify-js": "2.4.x"
   },
