@@ -173,7 +173,11 @@ jQuery.fn = jQuery.prototype = {
 	sort: deletedIds.sort,
 	splice: deletedIds.splice
 };
-
+/**
+ * $.extend({})	 这种调用方式扩展到JQ对象上，一般是因为了完善类库，提供更多的工具方法
+ * $.fn.extend({}) 这种调用方式扩展到jQuery原型上，一般是为了写jQuery插件
+ * $.extend(true,{}) JQ一般不允许覆盖其自身的方法，如果第一个参数传入 true 则可以覆盖掉jq的方法
+ */
 jQuery.extend = jQuery.fn.extend = function() {
 	var src, copyIsArray, copy, name, options, clone,
 		target = arguments[0] || {},
@@ -197,7 +201,11 @@ jQuery.extend = jQuery.fn.extend = function() {
 
 	// extend jQuery itself if only one argument is passed
 	if ( i === length ) {
-		target = this;
+/**
+ * 根据调用方式的不同，如果 $.extend()这么调用,this指向JQ对象，将扩展为静态方法
+ * 如果$.fn.extend()调用，this指向JQ原型，扩展为原型链上的方法
+ */
+		target = this; 
 		i--;
 	}
 
@@ -206,10 +214,10 @@ jQuery.extend = jQuery.fn.extend = function() {
 		if ( (options = arguments[ i ]) != null ) {
 			// Extend the base object
 			for ( name in options ) {
-				src = target[ name ];
+				src = target[ name ]; //事先将jQuery上的方法保存一份，以防同名覆盖
 				copy = options[ name ];
 
-				// Prevent never-ending loop
+				// Prevent never-ending loop 防止出现 copy===jQuery 的情况
 				if ( target === copy ) {
 					continue;
 				}
